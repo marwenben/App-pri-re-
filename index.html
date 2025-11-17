@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Horaires de Prière - Montréal & Tunis</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="islamic-pattern"></div>
+    <div class="container">
+        <header>
+            <div class="language-switcher">
+                <button id="lang-fr" class="lang-btn active">Français</button>
+                <button id="lang-ar" class="lang-btn">العربية</button>
+            </div>
+            
+            <!-- Icônes Coran, Hadiths, Tasbih, Qibla, Paramètres -->
+            <div class="islamic-tools">
+                <button id="quran-btn" class="tool-btn" title="Coran (Hafs)">
+                    <span class="tool-icon">📖</span>
+                    <span data-fr="Coran" data-ar="القرآن">Coran</span>
+                </button>
+                <button id="hadiths-btn" class="tool-btn" title="Hadiths">
+                    <span class="tool-icon">📚</span>
+                    <span data-fr="Hadiths" data-ar="الأحاديث">Hadiths</span>
+                </button>
+                <button id="tasbih-btn" class="tool-btn" title="Tasbih">
+                    <span class="tool-icon">📿</span>
+                    <span data-fr="Tasbih" data-ar="التسبيح">Tasbih</span>
+                </button>
+                <button id="qibla-btn" class="tool-btn" title="Direction Qibla">
+                    <span class="tool-icon">🧭</span>
+                    <span data-fr="Qibla" data-ar="القبلة">Qibla</span>
+                </button>
+                <button id="settings-btn" class="tool-btn" title="Paramètres">
+                    <span class="tool-icon">⚙️</span>
+                    <span data-fr="Paramètres" data-ar="الإعدادات">Paramètres</span>
+                </button>
+            </div>
+            
+            <h1 class="bismillah">بِسْمِ ٱللَّٰهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ</h1>
+            <h1 data-fr="🕌 Horaires de Prière" data-ar="🕌 مواقيت الصلاة">🕌 Horaires de Prière</h1>
+            <p id="current-date"></p>
+            <p id="islamic-date" class="islamic-date"></p>
+            
+            <!-- Sélecteurs de villes -->
+            <div class="city-selectors">
+                <div class="selector-group">
+                    <label data-fr="Ville 1:" data-ar="المدينة ١:">Ville 1:</label>
+                    <select id="city1-select" class="city-select">
+                        <option value="montreal-ca">🇨🇦 Montréal, Canada</option>
+                        <option value="tunis-tn">🇹🇳 Tunis, Tunisie</option>
+                        <option value="algiers-dz">🇩🇿 Alger, Algérie</option>
+                        <option value="mecca-sa">🇸🇦 La Mecque, Arabie Saoudite</option>
+                        <option value="medina-sa">🇸🇦 Médine, Arabie Saoudite</option>
+                        <option value="riyadh-sa">🇸🇦 Riyad, Arabie Saoudite</option>
+                        <option value="jeddah-sa">🇸🇦 Jeddah, Arabie Saoudite</option>
+                        <option value="cairo-eg">🇪🇬 Le Caire, Égypte</option>
+                        <option value="dubai-ae">🇦🇪 Dubaï, Émirats Arabes Unis</option>
+                        <option value="abudhabi-ae">🇦🇪 Abu Dhabi, Émirats Arabes Unis</option>
+                        <option value="doha-qa">🇶🇦 Doha, Qatar</option>
+                        <option value="kuwait-kw">🇰🇼 Koweït, Koweït</option>
+                        <option value="casablanca-ma">🇲🇦 Casablanca, Maroc</option>
+                        <option value="rabat-ma">🇲🇦 Rabat, Maroc</option>
+                        <option value="istanbul-tr">🇹🇷 Istanbul, Turquie</option>
+                        <option value="ankara-tr">🇹🇷 Ankara, Turquie</option>
+                        <option value="paris-fr">🇫🇷 Paris, France</option>
+                        <option value="london-gb">🇬🇧 Londres, Royaume-Uni</option>
+                        <option value="newyork-us">🇺🇸 New York, États-Unis</option>
+                        <option value="toronto-ca">🇨🇦 Toronto, Canada</option>
+                        <option value="ottawa-ca">🇨🇦 Ottawa, Canada</option>
+                        <option value="jakarta-id">🇮🇩 Jakarta, Indonésie</option>
+                        <option value="kualalumpur-my">🇲🇾 Kuala Lumpur, Malaisie</option>
+                        <option value="karachi-pk">🇵🇰 Karachi, Pakistan</option>
+                        <option value="lahore-pk">🇵🇰 Lahore, Pakistan</option>
+                        <option value="dhaka-bd">🇧🇩 Dhaka, Bangladesh</option>
+                    </select>
+                </div>
+                
+                <div class="selector-group">
+                    <label data-fr="Ville 2:" data-ar="المدينة ٢:">Ville 2:</label>
+                    <select id="city2-select" class="city-select">
+                        <option value="montreal-ca">🇨🇦 Montréal, Canada</option>
+                        <option value="tunis-tn" selected>🇹🇳 Tunis, Tunisie</option>
+                        <option value="algiers-dz">🇩🇿 Alger, Algérie</option>
+                        <option value="mecca-sa">🇸🇦 La Mecque, Arabie Saoudite</option>
+                        <option value="medina-sa">🇸🇦 Médine, Arabie Saoudite</option>
+                        <option value="riyadh-sa">🇸🇦 Riyad, Arabie Saoudite</option>
+                        <option value="jeddah-sa">🇸🇦 Jeddah, Arabie Saoudite</option>
+                        <option value="cairo-eg">🇪🇬 Le Caire, Égypte</option>
+                        <option value="dubai-ae">🇦🇪 Dubaï, Émirats Arabes Unis</option>
+                        <option value="abudhabi-ae">🇦🇪 Abu Dhabi, Émirats Arabes Unis</option>
+                        <option value="doha-qa">🇶🇦 Doha, Qatar</option>
+                        <option value="kuwait-kw">🇰🇼 Koweït, Koweït</option>
+                        <option value="casablanca-ma">🇲🇦 Casablanca, Maroc</option>
+                        <option value="rabat-ma">🇲🇦 Rabat, Maroc</option>
+                        <option value="istanbul-tr">🇹🇷 Istanbul, Turquie</option>
+                        <option value="ankara-tr">🇹🇷 Ankara, Turquie</option>
+                        <option value="paris-fr">🇫🇷 Paris, France</option>
+                        <option value="london-gb">🇬🇧 Londres, Royaume-Uni</option>
+                        <option value="newyork-us">🇺🇸 New York, États-Unis</option>
+                        <option value="toronto-ca">🇨🇦 Toronto, Canada</option>
+                        <option value="ottawa-ca">🇨🇦 Ottawa, Canada</option>
+                        <option value="jakarta-id">🇮🇩 Jakarta, Indonésie</option>
+                        <option value="kualalumpur-my">🇲🇾 Kuala Lumpur, Malaisie</option>
+                        <option value="karachi-pk">🇵🇰 Karachi, Pakistan</option>
+                        <option value="lahore-pk">🇵🇰 Lahore, Pakistan</option>
+                        <option value="dhaka-bd">🇧🇩 Dhaka, Bangladesh</option>
+                    </select>
+                </div>
+            </div>
+            
+            <!-- Compte à rebours Ramadan -->
+            <div id="ramadan-countdown" class="ramadan-countdown" style="cursor: pointer;" title="Cliquez pour voir le calendrier complet de Ramadan">
+                <div class="ramadan-icon">
+                    <video class="ramadan-video" autoplay loop muted playsinline>
+                        <source src="ramadan.mp4" type="video/mp4">
+                        <img src="ramadan.gif" alt="Ramadan">
+                    </video>
+                </div>
+                <div class="ramadan-text-container">
+                    <p id="ramadan-text" class="ramadan-main-text"></p>
+                </div>
+            </div>
+        </header>
+
+        <!-- Modal Calendrier Ramadan -->
+        <div id="ramadan-calendar-modal" class="modal">
+            <div class="modal-content ramadan-calendar-content">
+                <span class="close-modal" id="close-ramadan-calendar">&times;</span>
+                <h2 class="calendar-title">
+                    <span class="calendar-icon">🌙</span>
+                    <span data-fr="Calendrier du Ramadan 1446 H" data-ar="تقويم رمضان ١٤٤٦ هـ">Calendrier du Ramadan 1446 H</span>
+                    <span class="calendar-icon">🌙</span>
+                </h2>
+                <p class="calendar-subtitle">
+                    <span data-fr="1er Ramadan ≈ 28 Février 2025" data-ar="١ رمضان ≈ ٢٨ فبراير ٢٠٢٥">1er Ramadan ≈ 28 Février 2025</span>
+                </p>
+                <div id="ramadan-calendar-grid" class="calendar-grid"></div>
+                <div class="calendar-legend">
+                    <div class="legend-item">
+                        <span class="legend-box today-box"></span>
+                        <span data-fr="Aujourd'hui" data-ar="اليوم">Aujourd'hui</span>
+                    </div>
+                    <div class="legend-item">
+                        <span class="legend-box weekend-box"></span>
+                        <span data-fr="Weekend" data-ar="عطلة نهاية الأسبوع">Weekend</span>
+                    </div>
+                    <div class="legend-item">
+                        <span class="legend-box special-box"></span>
+                        <span data-fr="Nuits spéciales (21-29)" data-ar="الليالي الفضيلة (٢١-٢٩)">Nuits spéciales</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="cities-container">
+            <!-- Ville 1 -->
+            <div class="city-card" id="city1-card">
+                <h2 id="city1-name">📍 Montréal, Canada</h2>
+                
+                <div class="local-time">
+                    <span class="clock-icon">🕐</span>
+                    <span data-fr="Heure locale:" data-ar="الوقت المحلي:">Heure locale:</span>
+                    <span id="city1-time" class="time-display">--:--:--</span>
+                </div>
+                <div id="city1-prayers" class="prayers-list">
+                    <div class="prayer-item prayer-fajr" data-prayer="fajr">
+                        <div class="prayer-info-left">
+                            <span class="prayer-name" data-fr="Fajr" data-ar="الفجر">Fajr</span>
+                            <span class="prayer-time" id="city1-fajr">--:--</span>
+                        </div>
+                        <div class="prayer-weather" id="city1-fajr-weather">
+                            <div class="weather-icon"></div>
+                            <span class="weather-temp">--°</span>
+                        </div>
+                    </div>
+                    <div class="prayer-item prayer-dhuhr" data-prayer="dhuhr">
+                        <div class="prayer-info-left">
+                            <span class="prayer-name" data-fr="Dhuhr" data-ar="الظهر">Dhuhr</span>
+                            <span class="prayer-time" id="city1-dhuhr">--:--</span>
+                        </div>
+                        <div class="prayer-weather" id="city1-dhuhr-weather">
+                            <div class="weather-icon"></div>
+                            <span class="weather-temp">--°</span>
+                        </div>
+                    </div>
+                    <div class="prayer-item prayer-asr" data-prayer="asr">
+                        <div class="prayer-info-left">
+                            <span class="prayer-name" data-fr="Asr" data-ar="العصر">Asr</span>
+                            <span class="prayer-time" id="city1-asr">--:--</span>
+                        </div>
+                        <div class="prayer-weather" id="city1-asr-weather">
+                            <div class="weather-icon"></div>
+                            <span class="weather-temp">--°</span>
+                        </div>
+                    </div>
+                    <div class="prayer-item prayer-maghrib" data-prayer="maghrib">
+                        <div class="prayer-info-left">
+                            <span class="prayer-name" data-fr="Maghrib" data-ar="المغرب">Maghrib</span>
+                            <span class="prayer-time" id="city1-maghrib">--:--</span>
+                        </div>
+                        <div class="prayer-weather" id="city1-maghrib-weather">
+                            <div class="weather-icon"></div>
+                            <span class="weather-temp">--°</span>
+                        </div>
+                    </div>
+                    <div class="prayer-item prayer-isha" data-prayer="isha">
+                        <div class="prayer-info-left">
+                            <span class="prayer-name" data-fr="Isha" data-ar="العشاء">Isha</span>
+                            <span class="prayer-time" id="city1-isha">--:--</span>
+                        </div>
+                        <div class="prayer-weather" id="city1-isha-weather">
+                            <div class="weather-icon"></div>
+                            <span class="weather-temp">--°</span>
+                        </div>
+                    </div>
+                </div>
+                <p class="next-prayer" id="city1-next"></p>
+            </div>
+
+            <!-- Ville 2 -->
+            <div class="city-card" id="city2-card">
+                <h2 id="city2-name">📍 Tunis, Tunisie</h2>
+                <div class="local-time">
+                    <span class="clock-icon">🕐</span>
+                    <span data-fr="Heure locale:" data-ar="الوقت المحلي:">Heure locale:</span>
+                    <span id="city2-time" class="time-display">--:--:--</span>
+                </div>
+                <div id="city2-prayers" class="prayers-list">
+                    <div class="prayer-item prayer-fajr" data-prayer="fajr">
+                        <div class="prayer-info-left">
+                            <span class="prayer-name" data-fr="Fajr" data-ar="الفجر">Fajr</span>
+                            <span class="prayer-time" id="city2-fajr">--:--</span>
+                        </div>
+                        <div class="prayer-weather" id="city2-fajr-weather">
+                            <div class="weather-icon"></div>
+                            <span class="weather-temp">--°</span>
+                        </div>
+                    </div>
+                    <div class="prayer-item prayer-dhuhr" data-prayer="dhuhr">
+                        <div class="prayer-info-left">
+                            <span class="prayer-name" data-fr="Dhuhr" data-ar="الظهر">Dhuhr</span>
+                            <span class="prayer-time" id="city2-dhuhr">--:--</span>
+                        </div>
+                        <div class="prayer-weather" id="city2-dhuhr-weather">
+                            <div class="weather-icon"></div>
+                            <span class="weather-temp">--°</span>
+                        </div>
+                    </div>
+                    <div class="prayer-item prayer-asr" data-prayer="asr">
+                        <div class="prayer-info-left">
+                            <span class="prayer-name" data-fr="Asr" data-ar="العصر">Asr</span>
+                            <span class="prayer-time" id="city2-asr">--:--</span>
+                        </div>
+                        <div class="prayer-weather" id="city2-asr-weather">
+                            <div class="weather-icon"></div>
+                            <span class="weather-temp">--°</span>
+                        </div>
+                    </div>
+                    <div class="prayer-item prayer-maghrib" data-prayer="maghrib">
+                        <div class="prayer-info-left">
+                            <span class="prayer-name" data-fr="Maghrib" data-ar="المغرب">Maghrib</span>
+                            <span class="prayer-time" id="city2-maghrib">--:--</span>
+                        </div>
+                        <div class="prayer-weather" id="city2-maghrib-weather">
+                            <div class="weather-icon"></div>
+                            <span class="weather-temp">--°</span>
+                        </div>
+                    </div>
+                    <div class="prayer-item prayer-isha" data-prayer="isha">
+                        <div class="prayer-info-left">
+                            <span class="prayer-name" data-fr="Isha" data-ar="العشاء">Isha</span>
+                            <span class="prayer-time" id="city2-isha">--:--</span>
+                        </div>
+                        <div class="prayer-weather" id="city2-isha-weather">
+                            <div class="weather-icon"></div>
+                            <span class="weather-temp">--°</span>
+                        </div>
+                    </div>
+                </div>
+                <p class="next-prayer" id="city2-next"></p>
+            </div>
+        </div>
+
+        <!-- Modal Qibla -->
+        <div id="qibla-modal" class="modal">
+            <div class="modal-content qibla-modal-content">
+                <div class="modal-header">
+                    <h2>
+                        <span data-fr="🧭 Direction de la Qibla" data-ar="🧭 اتجاه القبلة">🧭 Direction de la Qibla</span>
+                    </h2>
+                    <button class="close-btn" id="close-qibla">&times;</button>
+                </div>
+                <div class="modal-body qibla-body">
+                    <!-- Message d'état -->
+                    <div class="qibla-status" id="qibla-status">
+                        <p class="status-text" id="status-text" data-fr="Détection de votre position..." data-ar="جاري تحديد موقعك...">Détection de votre position...</p>
+                    </div>
+                    
+                    <!-- Boussole Qibla -->
+                    <div class="qibla-compass-wrapper">
+                        <!-- Direction Qibla fixe (pointe toujours vers La Mecque) -->
+                        <div class="qibla-direction-fixed">
+                            <div class="kaaba-top">🕋</div>
+                            <div class="qibla-line"></div>
+                        </div>
+                        
+                        <!-- Boussole rotative (cercle qui tourne pour montrer le Nord) -->
+                        <div class="compass-rotating" id="compass-rotating">
+                            <!-- Cercle principal -->
+                            <div class="compass-circle-main">
+                                <!-- Nord (rouge) -->
+                                <div class="compass-north-marker">
+                                    <div class="north-triangle"></div>
+                                    <div class="north-label">N</div>
+                                </div>
+                                
+                                <!-- Autres directions -->
+                                <div class="compass-east-marker">E</div>
+                                <div class="compass-south-marker">S</div>
+                                <div class="compass-west-marker">O</div>
+                                
+                                <!-- Marqueurs de degrés -->
+                                <div class="degree-line d0"></div>
+                                <div class="degree-line d45"></div>
+                                <div class="degree-line d90"></div>
+                                <div class="degree-line d135"></div>
+                                <div class="degree-line d180"></div>
+                                <div class="degree-line d225"></div>
+                                <div class="degree-line d270"></div>
+                                <div class="degree-line d315"></div>
+                            </div>
+                        </div>
+                        
+                        <!-- Point central -->
+                        <div class="compass-center-dot"></div>
+                    </div>
+                    
+                    <!-- Informations -->
+                    <div class="qibla-info-cards">
+                        <div class="info-card">
+                            <div class="info-icon">🧭</div>
+                            <div class="info-details">
+                                <div class="info-label" data-fr="Direction Qibla" data-ar="اتجاه القبلة">Direction Qibla</div>
+                                <div class="info-value big" id="qibla-angle-value">--°</div>
+                            </div>
+                        </div>
+                        
+                        <div class="info-card">
+                            <div class="info-icon">📏</div>
+                            <div class="info-details">
+                                <div class="info-label" data-fr="Distance" data-ar="المسافة">Distance</div>
+                                <div class="info-value" id="qibla-distance-value">-- km</div>
+                            </div>
+                        </div>
+                        
+                        <div class="info-card full-width">
+                            <div class="info-icon">🌍</div>
+                            <div class="info-details">
+                                <div class="info-label" data-fr="Votre position" data-ar="موقعك">Votre position</div>
+                                <div class="info-value small" id="qibla-position-value">--</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Instructions -->
+                    <div class="qibla-help">
+                        <p class="help-title" data-fr="📱 Sur mobile:" data-ar="📱 على الهاتف:">📱 Sur mobile:</p>
+                        <p class="help-text" data-fr="Tenez votre appareil à plat et tournez jusqu'à ce que le N (rouge) soit aligné avec le haut" data-ar="امسك جهازك بشكل مسطح واستدر حتى يتماشى حرف N (الأحمر) مع الأعلى">Tenez votre appareil à plat et tournez jusqu'à ce que le N (rouge) soit aligné avec le haut</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal Coran -->
+        <div id="quran-modal" class="modal">
+            <div class="modal-content quran-modal-content">
+                <div class="modal-header">
+                    <h2>
+                        <span data-fr="📖 Saint Coran - Riwayat Hafs" data-ar="📖 القرآن الكريم - رواية حفص">📖 Saint Coran - Riwayat Hafs</span>
+                    </h2>
+                    <button class="close-btn" id="close-quran">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div class="surah-selector">
+                        <label data-fr="Choisir une Sourate:" data-ar="اختر سورة:">Choisir une Sourate:</label>
+                        <select id="surah-select" class="quran-select">
+                            <option value="1">1. الفاتحة - Al-Fatiha (L'Ouverture)</option>
+                            <option value="2">2. البقرة - Al-Baqara (La Vache)</option>
+                            <option value="3">3. آل عمران - Ali 'Imran (La Famille d'Imran)</option>
+                            <option value="4">4. النساء - An-Nisa (Les Femmes)</option>
+                            <option value="5">5. المائدة - Al-Ma'ida (La Table Servie)</option>
+                            <option value="6">6. الأنعام - Al-An'am (Les Bestiaux)</option>
+                            <option value="7">7. الأعراف - Al-A'raf (Le Mur d'A'raf)</option>
+                            <option value="8">8. الأنفال - Al-Anfal (Le Butin)</option>
+                            <option value="9">9. التوبة - At-Tawba (Le Repentir)</option>
+                            <option value="10">10. يونس - Yunus (Jonas)</option>
+                            <option value="11">11. هود - Hud (Hud)</option>
+                            <option value="12">12. يوسف - Yusuf (Joseph)</option>
+                            <option value="13">13. الرعد - Ar-Ra'd (Le Tonnerre)</option>
+                            <option value="14">14. إبراهيم - Ibrahim (Abraham)</option>
+                            <option value="15">15. الحجر - Al-Hijr (Al-Hijr)</option>
+                            <option value="16">16. النحل - An-Nahl (Les Abeilles)</option>
+                            <option value="17">17. الإسراء - Al-Isra (Le Voyage Nocturne)</option>
+                            <option value="18">18. الكهف - Al-Kahf (La Caverne)</option>
+                            <option value="19">19. مريم - Maryam (Marie)</option>
+                            <option value="20">20. طه - Ta-Ha (Ta-Ha)</option>
+                            <option value="21">21. الأنبياء - Al-Anbiya (Les Prophètes)</option>
+                            <option value="22">22. الحج - Al-Hajj (Le Pèlerinage)</option>
+                            <option value="23">23. المؤمنون - Al-Mu'minun (Les Croyants)</option>
+                            <option value="24">24. النور - An-Nur (La Lumière)</option>
+                            <option value="25">25. الفرقان - Al-Furqan (Le Discernement)</option>
+                            <option value="26">26. الشعراء - Ash-Shu'ara (Les Poètes)</option>
+                            <option value="27">27. النمل - An-Naml (Les Fourmis)</option>
+                            <option value="28">28. القصص - Al-Qasas (Le Récit)</option>
+                            <option value="29">29. العنكبوت - Al-'Ankabut (L'Araignée)</option>
+                            <option value="30">30. الروم - Ar-Rum (Les Romains)</option>
+                            <option value="31">31. لقمان - Luqman (Luqman)</option>
+                            <option value="32">32. السجدة - As-Sajda (La Prosternation)</option>
+                            <option value="33">33. الأحزاب - Al-Ahzab (Les Coalisés)</option>
+                            <option value="34">34. سبأ - Saba (Saba)</option>
+                            <option value="35">35. فاطر - Fatir (Le Créateur)</option>
+                            <option value="36">36. يس - Ya-Sin (Ya-Sin)</option>
+                            <option value="37">37. الصافات - As-Saffat (Les Rangés)</option>
+                            <option value="38">38. ص - Sad (Sad)</option>
+                            <option value="39">39. الزمر - Az-Zumar (Les Groupes)</option>
+                            <option value="40">40. غافر - Ghafir (Le Pardonneur)</option>
+                            <option value="41">41. فصلت - Fussilat (Les Versets Détaillés)</option>
+                            <option value="42">42. الشورى - Ash-Shura (La Consultation)</option>
+                            <option value="43">43. الزخرف - Az-Zukhruf (L'Ornement)</option>
+                            <option value="44">44. الدخان - Ad-Dukhan (La Fumée)</option>
+                            <option value="45">45. الجاثية - Al-Jathiya (L'Agenouillée)</option>
+                            <option value="46">46. الأحقاف - Al-Ahqaf (Les Dunes)</option>
+                            <option value="47">47. محمد - Muhammad (Muhammad)</option>
+                            <option value="48">48. الفتح - Al-Fath (La Victoire)</option>
+                            <option value="49">49. الحجرات - Al-Hujurat (Les Appartements)</option>
+                            <option value="50">50. ق - Qaf (Qaf)</option>
+                            <option value="51">51. الذاريات - Adh-Dhariyat (Les Vents)</option>
+                            <option value="52">52. الطور - At-Tur (Le Mont)</option>
+                            <option value="53">53. النجم - An-Najm (L'Étoile)</option>
+                            <option value="54">54. القمر - Al-Qamar (La Lune)</option>
+                            <option value="55">55. الرحمن - Ar-Rahman (Le Miséricordieux)</option>
+                            <option value="56">56. الواقعة - Al-Waqi'a (L'Événement)</option>
+                            <option value="57">57. الحديد - Al-Hadid (Le Fer)</option>
+                            <option value="58">58. المجادلة - Al-Mujadila (La Discussion)</option>
+                            <option value="59">59. الحشر - Al-Hashr (Le Rassemblement)</option>
+                            <option value="60">60. الممتحنة - Al-Mumtahana (L'Éprouvée)</option>
+                            <option value="61">61. الصف - As-Saff (Le Rang)</option>
+                            <option value="62">62. الجمعة - Al-Jumu'a (Le Vendredi)</option>
+                            <option value="63">63. المنافقون - Al-Munafiqun (Les Hypocrites)</option>
+                            <option value="64">64. التغابن - At-Taghabun (La Grande Perte)</option>
+                            <option value="65">65. الطلاق - At-Talaq (Le Divorce)</option>
+                            <option value="66">66. التحريم - At-Tahrim (L'Interdiction)</option>
+                            <option value="67">67. الملك - Al-Mulk (La Royauté)</option>
+                            <option value="68">68. القلم - Al-Qalam (La Plume)</option>
+                            <option value="69">69. الحاقة - Al-Haqqa (Celle qui Montre)</option>
+                            <option value="70">70. المعارج - Al-Ma'arij (Les Voies d'Ascension)</option>
+                            <option value="71">71. نوح - Nuh (Noé)</option>
+                            <option value="72">72. الجن - Al-Jinn (Les Djinns)</option>
+                            <option value="73">73. المزمل - Al-Muzzammil (L'Enveloppé)</option>
+                            <option value="74">74. المدثر - Al-Muddaththir (Le Revêtu)</option>
+                            <option value="75">75. القيامة - Al-Qiyama (La Résurrection)</option>
+                            <option value="76">76. الإنسان - Al-Insan (L'Homme)</option>
+                            <option value="77">77. المرسلات - Al-Mursalat (Les Envoyés)</option>
+                            <option value="78">78. النبإ - An-Naba (La Nouvelle)</option>
+                            <option value="79">79. النازعات - An-Nazi'at (Les Anges Arracheurs)</option>
+                            <option value="80">80. عبس - 'Abasa (Il S'est Renfrogné)</option>
+                            <option value="81">81. التكوير - At-Takwir (L'Obscurcissement)</option>
+                            <option value="82">82. الإنفطار - Al-Infitar (La Rupture)</option>
+                            <option value="83">83. المطففين - Al-Mutaffifin (Les Fraudeurs)</option>
+                            <option value="84">84. الإنشقاق - Al-Inshiqaq (La Déchirure)</option>
+                            <option value="85">85. البروج - Al-Buruj (Les Constellations)</option>
+                            <option value="86">86. الطارق - At-Tariq (L'Astre Nocturne)</option>
+                            <option value="87">87. الأعلى - Al-A'la (Le Très-Haut)</option>
+                            <option value="88">88. الغاشية - Al-Ghashiya (L'Enveloppante)</option>
+                            <option value="89">89. الفجر - Al-Fajr (L'Aube)</option>
+                            <option value="90">90. البلد - Al-Balad (La Cité)</option>
+                            <option value="91">91. الشمس - Ash-Shams (Le Soleil)</option>
+                            <option value="92">92. الليل - Al-Layl (La Nuit)</option>
+                            <option value="93">93. الضحى - Ad-Duha (Le Jour Montant)</option>
+                            <option value="94">94. الشرح - Ash-Sharh (L'Ouverture)</option>
+                            <option value="95">95. التين - At-Tin (Le Figuier)</option>
+                            <option value="96">96. العلق - Al-'Alaq (L'Adhérence)</option>
+                            <option value="97">97. القدر - Al-Qadr (La Destinée)</option>
+                            <option value="98">98. البينة - Al-Bayyina (La Preuve)</option>
+                            <option value="99">99. الزلزلة - Az-Zalzala (Le Séisme)</option>
+                            <option value="100">100. العاديات - Al-'Adiyat (Les Coursiers)</option>
+                            <option value="101">101. القارعة - Al-Qari'a (Le Fracas)</option>
+                            <option value="102">102. التكاثر - At-Takathur (La Course aux Richesses)</option>
+                            <option value="103">103. العصر - Al-'Asr (Le Temps)</option>
+                            <option value="104">104. الهمزة - Al-Humaza (Les Calomniateurs)</option>
+                            <option value="105">105. الفيل - Al-Fil (L'Éléphant)</option>
+                            <option value="106">106. قريش - Quraysh (Quraych)</option>
+                            <option value="107">107. الماعون - Al-Ma'un (L'Ustensile)</option>
+                            <option value="108">108. الكوثر - Al-Kawthar (L'Abondance)</option>
+                            <option value="109">109. الكافرون - Al-Kafirun (Les Infidèles)</option>
+                            <option value="110">110. النصر - An-Nasr (Les Secours)</option>
+                            <option value="111">111. المسد - Al-Masad (Les Fibres)</option>
+                            <option value="112">112. الإخلاص - Al-Ikhlas (Le Monothéisme Pur)</option>
+                            <option value="113">113. الفلق - Al-Falaq (L'Aube Naissante)</option>
+                            <option value="114">114. الناس - An-Nas (Les Hommes)</option>
+                        </select>
+                        <button id="load-surah-btn" class="load-btn" data-fr="Charger" data-ar="تحميل">Charger</button>
+                    </div>
+                    <div id="quran-text" class="quran-text">
+                        <p class="quran-info" data-fr="Sélectionnez une sourate ci-dessus" data-ar="اختر سورة من الأعلى">Sélectionnez une sourate ci-dessus</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal Tasbih -->
+        <div id="tasbih-modal" class="modal">
+            <div class="modal-content tasbih-modal-content">
+                <div class="modal-header">
+                    <h2>
+                        <span data-fr="📿 Tasbih Électronique" data-ar="📿 المسبحة الإلكترونية">📿 Tasbih Électronique</span>
+                    </h2>
+                    <button class="close-btn" id="close-tasbih">&times;</button>
+                </div>
+                <div class="modal-body tasbih-body">
+                    <div class="tasbih-phrases">
+                        <button class="phrase-btn active" data-phrase="سبحان الله">
+                            <span class="arabic-text">سُبْحَانَ ٱللَّٰهِ</span>
+                            <span class="translation">Subhan Allah</span>
+                        </button>
+                        <button class="phrase-btn" data-phrase="الحمد لله">
+                            <span class="arabic-text">ٱلْحَمْدُ لِلَّٰهِ</span>
+                            <span class="translation">Alhamdulillah</span>
+                        </button>
+                        <button class="phrase-btn" data-phrase="الله أكبر">
+                            <span class="arabic-text">ٱللَّٰهُ أَكْبَرُ</span>
+                            <span class="translation">Allahu Akbar</span>
+                        </button>
+                        <button class="phrase-btn" data-phrase="لا إله إلا الله">
+                            <span class="arabic-text">لَا إِلَٰهَ إِلَّا ٱللَّٰهُ</span>
+                            <span class="translation">La ilaha illa Allah</span>
+                        </button>
+                        <button class="phrase-btn" data-phrase="استغفر الله">
+                            <span class="arabic-text">أَسْتَغْفِرُ ٱللَّٰهَ</span>
+                            <span class="translation">Astaghfirullah</span>
+                        </button>
+                    </div>
+                    
+                    <div class="current-phrase" id="current-phrase">سُبْحَانَ ٱللَّٰهِ</div>
+                    
+                    <button id="tasbih-increment" class="tasbih-btn">
+                        <div class="tasbih-counter" id="tasbih-count">0</div>
+                        <div class="tasbih-label" data-fr="Cliquez pour compter" data-ar="اضغط للعد">Cliquez pour compter</div>
+                    </button>
+                    
+                    <div class="tasbih-actions">
+                        <button id="tasbih-reset" class="action-btn reset-btn" data-fr="Réinitialiser" data-ar="إعادة تعيين">Réinitialiser</button>
+                        <button id="tasbih-target-33" class="action-btn target-btn">33</button>
+                        <button id="tasbih-target-99" class="action-btn target-btn">99</button>
+                    </div>
+                    
+                    <div class="tasbih-goal" id="tasbih-goal"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal Hadiths -->
+        <div id="hadiths-modal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>
+                        <span data-fr="📚 Hadiths Authentiques" data-ar="📚 الأحاديث الصحيحة">📚 Hadiths Authentiques</span>
+                    </h2>
+                    <button class="close-btn" id="close-hadiths">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div class="hadiths-controls">
+                        <input type="text" id="hadith-search" placeholder="Rechercher dans les hadiths..." class="hadith-search">
+                        <div class="hadith-filters">
+                            <button class="filter-btn active" data-filter="all" data-fr="Tous" data-ar="الكل">Tous</button>
+                            <button class="filter-btn" data-filter="bukhari" data-fr="Bukhari" data-ar="البخاري">Bukhari</button>
+                            <button class="filter-btn" data-filter="muslim" data-fr="Muslim" data-ar="مسلم">Muslim</button>
+                            <button class="filter-btn" data-filter="favorites" data-fr="Favoris" data-ar="المفضلة">Favoris</button>
+                        </div>
+                    </div>
+                    <div id="hadiths-list" class="hadiths-list"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal Paramètres -->
+        <div id="settings-modal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>
+                        <span data-fr="⚙️ Paramètres" data-ar="⚙️ الإعدادات">⚙️ Paramètres</span>
+                    </h2>
+                    <button class="close-btn" id="close-settings">&times;</button>
+                </div>
+                <div class="modal-body settings-body">
+                    <!-- Section Notifications -->
+                    <div class="settings-section">
+                        <h3 data-fr="🔔 Notifications" data-ar="🔔 التنبيهات">🔔 Notifications</h3>
+                        <div class="setting-item">
+                            <label class="toggle-switch">
+                                <input type="checkbox" id="notifications-toggle">
+                                <span class="toggle-slider"></span>
+                            </label>
+                            <span data-fr="Activer les notifications" data-ar="تفعيل التنبيهات">Activer les notifications</span>
+                            <span id="notification-status" class="status-text">⭕ Désactivé</span>
+                        </div>
+                        <div class="setting-item">
+                            <label data-fr="Notifier avant la prière:" data-ar="إشعار قبل الصلاة:">Notifier avant la prière:</label>
+                            <select id="notification-delay">
+                                <option value="0" data-fr="À l'heure exacte" data-ar="في الوقت بالضبط">À l'heure exacte</option>
+                                <option value="5" data-fr="5 minutes avant" data-ar="5 دقائق قبل">5 minutes avant</option>
+                                <option value="10" data-fr="10 minutes avant" data-ar="10 دقائق قبل">10 minutes avant</option>
+                                <option value="15" data-fr="15 minutes avant" data-ar="15 دقيقة قبل">15 minutes avant</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Section Adhan -->
+                    <div class="settings-section">
+                        <h3 data-fr="📢 Adhan" data-ar="📢 الأذان">📢 Adhan</h3>
+                        <div class="setting-item">
+                            <label class="toggle-switch">
+                                <input type="checkbox" id="adhan-toggle">
+                                <span class="toggle-slider"></span>
+                            </label>
+                            <span data-fr="Jouer l'adhan" data-ar="تشغيل الأذان">Jouer l'adhan</span>
+                        </div>
+                        <div class="setting-item">
+                            <label data-fr="Choix de l'adhan:" data-ar="اختيار الأذان:">Choix de l'adhan:</label>
+                            <select id="adhan-select">
+                                <option value="adhan1.mp3">Adhan 1 (Recommandé - 5.9 MB)</option>
+                                <option value="adhan2.mp3">Adhan 2 (Court - 285 KB)</option>
+                            </select>
+                        </div>
+                        <div class="setting-item">
+                            <label data-fr="Volume:" data-ar="مستوى الصوت:">Volume:</label>
+                            <input type="range" id="adhan-volume" min="0" max="100" value="80">
+                            <span id="volume-value">80%</span>
+                        </div>
+                        <button id="test-adhan-btn" class="test-btn" data-fr="🎵 Tester l'Adhan" data-ar="🎵 اختبار الأذان">🎵 Tester l'Adhan</button>
+                    </div>
+
+                    <!-- Bouton Installer PWA -->
+                    <div class="settings-section">
+                        <h3 data-fr="📱 Application" data-ar="📱 التطبيق">📱 Application</h3>
+                        <button id="install-pwa-btn" class="install-btn" style="display:none;">
+                            <span data-fr="📱 Installer l'Application" data-ar="📱 تثبيت التطبيق">📱 Installer l'Application</span>
+                        </button>
+                        <p class="install-hint" id="install-hint" data-fr="Installez cette app sur votre appareil pour un accès rapide!" data-ar="قم بتثبيت هذا التطبيق على جهازك للوصول السريع!">Installez cette app sur votre appareil pour un accès rapide!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <p data-fr="Mise à jour automatique toutes les minutes" data-ar="التحديث التلقائي كل دقيقة">Mise à jour automatique toutes les minutes</p>
+            <p class="last-update">
+                <span data-fr="Dernière mise à jour:" data-ar="آخر تحديث:">Dernière mise à jour:</span>
+                <span id="last-update-time"></span>
+            </p>
+        </footer>
+    </div>
+
+    <script src="hadiths.js"></script>
+    <script src="quran.js"></script>
+    <script src="notifications.js"></script>
+    <script src="settings.js"></script>
+    <script src="init-modals.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
